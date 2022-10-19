@@ -77,6 +77,26 @@ public class OrderController {
         return order;
     }
 
+    @RequestMapping(value = "testGetOrdersByUserName")
+    public UserEntity testGetOrdersByUserName(String userName){
+        List<OrderEntity> order = orderRepository.testGetOrdersByUserName(userName);
+
+        System.out.println("-- 프록시 객체 접근 오류 테스트");
+        String userNm = order.get(0).getUser().getUserName();
+        String userPw = order.get(0).getUser().getUserPw();
+
+        System.out.println("-- 프록시 객체 접근 오류 테스트2");
+        UserEntity result = order.get(0).getUser();
+
+        return result;
+    }
+
+    @RequestMapping(value = "getExistOrderInfoFetchJoin")
+    public List<OrderEntity> getExistOrderInfoFetchJoin(String userName){
+        List<OrderEntity> order = orderRepository.getExistOrderInfoFetchJoin(userName);
+        return order;
+    }
+
     @RequestMapping(value = "getOrdersByUserName2")
     @Transactional
     public List<OrderEntity> getOrdersByUserName2(String userName){
