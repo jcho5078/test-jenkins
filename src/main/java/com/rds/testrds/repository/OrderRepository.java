@@ -15,7 +15,19 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
 
     public Optional<OrderEntity> findById(Long Id);
 
-    @Query("select od " +
-            "from OrderEntity od where od.user.userName in (select u.userName from UserEntity u where u.userName = :name)")
+    /**
+     * 기본 join으로 엔티티 내용 조회(OrderEntity 값만 가져옴. userEntity의 값에 접근하면 LazyInitialization 익셉션 발생. -영속성 초기화되지않은 객체값이므로)
+     * @param name
+     * @return
+     */
+    @Query("select od from OrderEntity od where od.user.userName in (select u.userName from UserEntity u where u.userName = :name)")
     public List<OrderEntity> getExistOrderInfoByUserName(@Param("name") String name);
+
+    /**
+     * fetch join으로 조회
+     * @param name
+     * @return
+     */
+    @Query("select od from OrderEntity od join fetch od.user where od.user.userName = :name")
+    public List<OrderEntity> getExistOrderInfoFetchJoin(@Param("name") String name);
 }

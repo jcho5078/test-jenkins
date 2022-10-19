@@ -16,11 +16,20 @@ spring:
       path: /h2-console
 
   datasource:
-    url: jdbc:mariadb://database-1.cmdh7ovqnvel.ap-northeast-2.rds.amazonaws.com:3306/test
-    #url: jdbc:mariadb:// /test
-    driver-class-name:  org.mariadb.jdbc.Driver
-    username: admin
-    password: 98989898
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+
+    #url: jdbc:mariadb://localhost:3306/test
+    #driver-class-name:  org.mariadb.jdbc.Driver
+    #username: root
+    #password: 1234
+
+#   url: jdbc:mariadb://database-1.cmdh7ovqnvel.ap-northeast-2.rds.amazonaws.com:3306/test
+#   driver-class-name:  org.mariadb.jdbc.Driver
+#   username: admin
+#   password: 98989898
 
   jpa:
     hibernate:
