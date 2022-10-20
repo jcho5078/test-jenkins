@@ -24,7 +24,7 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
     public List<OrderEntity> getExistOrderInfoByUserName(@Param("name") String name);
 
     /**
-     * 프록시객체 LazyException 테스트용도 (jsonIgnore를 통하여 load 오류 사전방지)
+     * 프록시객체 LazyException 테스트용도 (jsonIgnore를 통하여 load 오류 사전방지.)
      * 기본 join으로 엔티티 내용 조회(OrderEntity 값만 가져옴. userEntity의 값에 접근하면 LazyInitialization 익셉션 발생. -영속성 초기화되지않은 객체값이므로)
      * @param name
      * @return
