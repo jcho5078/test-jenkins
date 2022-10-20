@@ -16,7 +16,7 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
     public Optional<OrderEntity> findById(Long Id);
 
     /**
-     * joing이 아닌 테이블 자체를 불러서 조회하기. (jsonIgnore를 통하여 load 오류 사전방지)
+     * joing이 아닌 테이블 자체를 불러서 조회하기.(조인으로 익셉션 방지 테스트)
      * @param name
      * @return
      */
