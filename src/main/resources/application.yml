@@ -15,6 +15,14 @@ spring:
         web-allow-others: true
       path: /h2-console
 
+  cloud:
+    gcp:
+      project-id: graphite-ruler-366202
+      topic-name: testPub-sub
+      topic-name-sub: testPub-sub-sub
+      credentials:
+        location: file:C:\Users\jcho5\Documents\PubSub_Account_Key.json
+
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:testdb
@@ -36,10 +44,9 @@ spring:
       ddl-auto: create-drop
       #naming:
         #physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    show-sql: true
+    show-sql: false
     generate-ddl: true
-
 
 logging:
   level:
-    com.example.catalogservice: DEBUG
+    org.springframework.web : debug
