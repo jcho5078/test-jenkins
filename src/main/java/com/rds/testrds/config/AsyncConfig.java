@@ -1,5 +1,6 @@
 package com.rds.testrds.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.AsyncConfigurerSupport;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -9,15 +10,15 @@ import java.util.concurrent.Executor;
 
 @Configuration
 @EnableAsync
-public class AsyncConfig extends AsyncConfigurerSupport {
+public class AsyncConfig {
 
-    @Override
+    @Bean(name = "executor")
     public Executor getAsyncExecutor(){
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(5);
-        executor.setMaxPoolSize(30);
-        executor.setQueueCapacity(50);
-        executor.setThreadNamePrefix("DDAJA-ASYNC-");
+        executor.setMaxPoolSize(5);
+        executor.setQueueCapacity(10);
+        executor.setThreadNamePrefix("executor JJH");
         executor.initialize();
         return executor;
     }

@@ -24,7 +24,8 @@ public class AsynTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    public DeferredResult<String> test1(String userName) throws Exception {
+    @Async("executor")
+    public String test1(String userName) throws Exception {
         System.out.println("start");
         DeferredResult<String> stringDeferredResult = new DeferredResult<String>();
         //db I/O작업 처리
@@ -37,10 +38,10 @@ public class AsynTest {
         //결과값 처리
         stringDeferredResult.setResult(json);
 
-        return stringDeferredResult;
+        return json;
     }
 
-    @Async
+    @Async("executor")
     public Future test2(String userName) throws Exception {
         System.out.println("start");
         //db I/O작업 처리
@@ -55,7 +56,7 @@ public class AsynTest {
         return result;
     }
 
-    @Async
+    @Async("executor")
     public ListenableFuture<String> test3(String userName) throws Exception {
 
         System.out.println("start");
@@ -71,18 +72,17 @@ public class AsynTest {
         return result;
     }
 
-    @Async
+    @Async("executor")
     public CompletableFuture test4(String userName) throws Exception {
 
-        System.out.println("start");
         //db I/O작업 처리
         List<OrderEntity> order = orderRepository.getExistOrderInfoFetchJoin(userName);
 
         //json 일괄처리
-        String json = objectMapper.writeValueAsString(order);
+        //String json = objectMapper.writeValueAsString(order);
 
         //결과값 처리
-        CompletableFuture result = new AsyncResult(json).completable();
+        CompletableFuture result = new AsyncResult(order).completable();
 
         return result;
     }

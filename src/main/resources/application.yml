@@ -23,30 +23,28 @@ spring:
       credentials:
         location: file:C:\Users\jcho5\Documents\PubSub_Account_Key.json
 
-  datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:testdb
-    username: sa
-    password:
+#  datasource:
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:mem:testdb
+#    username: sa
+#    password:
 
     #url: jdbc:mariadb://localhost:3306/test
     #driver-class-name:  org.mariadb.jdbc.Driver
     #username: root
     #password: 1234
 
-#   url: jdbc:mariadb://database-1.cmdh7ovqnvel.ap-northeast-2.rds.amazonaws.com:3306/test
-#   driver-class-name:  org.mariadb.jdbc.Driver
-#   username: admin
-#   password: 98989898
+  datasource:
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
-      ddl-auto: create-drop
-      #naming:
-        #physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    show-sql: false
+      ddl-auto: none
+        #naming:
+      #physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
     generate-ddl: true
 
-logging:
-  level:
-    org.springframework.web : debug

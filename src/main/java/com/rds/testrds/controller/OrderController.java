@@ -106,7 +106,7 @@ public class OrderController {
         List<OrderEntity> order = orderRepository.getExistOrderInfoFetchJoin(userName);
 
         //objectMapper.writeValueAsString(order)
-        pubSubMessagePublisher.publish(order.get(0));
+        //pubSubMessagePublisher.publish(order.get(0)); //이벤트 처리 테스트
 
         return order;
     }

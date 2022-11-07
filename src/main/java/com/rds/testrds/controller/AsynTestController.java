@@ -1,6 +1,7 @@
 package com.rds.testrds.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.rds.testrds.entity.OrderEntity;
 import com.rds.testrds.msg.AsynTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,17 +25,18 @@ public class AsynTestController {
 
     @RequestMapping("testAsync1")
     @ResponseBody
-    public List<String> test1() throws Exception {
+    public DeferredResult<List<String>> test1() throws Exception {
 
+        DeferredResult<List<String>> deferredResult = new DeferredResult<>();
         List<String> result = new ArrayList<>();
 
-        for(int i=0; i<5; i++){
-            DeferredResult<String> deferredResult = asynTest.test1("John2");
-            Thread thread = Thread.currentThread();
-            System.out.println(thread.getId());
-            result.add(String.valueOf(deferredResult.getResult()));
-        }
-        return result;
+        result.add(asynTest.test1("John2"));
+        /*Thread thread = Thread.currentThread();
+        System.out.println(thread.getId());*/
+        result.add(String.valueOf(deferredResult.getResult()));
+        deferredResult.setResult(result);
+
+        return deferredResult;
     }
 
     @RequestMapping("testAsync2")
@@ -43,12 +45,10 @@ public class AsynTestController {
 
         List<String> result = new ArrayList<>();
 
-        for(int i=0; i<5; i++){
-            Future<String> future = asynTest.test2("John2");
-            Thread thread = Thread.currentThread();
-            System.out.println(thread.getId());
-            result.add(future.get());
-        }
+        Future<String> future = asynTest.test2("John2");
+        /*Thread thread = Thread.currentThread();
+        System.out.println(thread.getId());*/
+        result.add(future.get());
         return result;
     }
 
@@ -58,20 +58,18 @@ public class AsynTestController {
 
         List<String> result = new ArrayList<>();
 
-        for(int i=0; i<5; i++){
-            ListenableFuture<String> listenableFuture = asynTest.test3("John2");
-            listenableFuture.addCallback(json ->
-            {result.add(json); System.out.println(json);Thread thread = Thread.currentThread();
-                System.out.println(thread.getId());}, ex -> {});
-        }
+        ListenableFuture<String> listenableFuture = asynTest.test3("John2");
+        listenableFuture.addCallback(json ->
+        {result.add(json); System.out.println(json);/*Thread thread = Thread.currentThread();
+            System.out.println(thread.getId());*/}, ex -> {});
         return result;
     }
 
     @RequestMapping("testAsync4")
     @ResponseBody
-    public String test4() throws Exception {
+    public CompletableFuture<OrderEntity> test4() throws Exception {
 
-        List<String> result = new ArrayList<>();
+        return asynTest.test4("John2");
 
         /*for(int i=0; i<5; i++){
             CompletableFuture<String> completableFuture = asynTest.test4("John2");
@@ -85,22 +83,24 @@ public class AsynTestController {
                         return null;
                     });
         }*/
-        CompletableFuture<String> completableFuture = asynTest.test4("John2");
-        completableFuture/*.thenApply(json -> {
+        //CompletableFuture<String> completableFuture = asynTest.test4("John2");
+        /*completableFuture*//*.thenApply(json -> {
             result.add(json);
             Thread thread = Thread.currentThread();
             System.out.println(thread.getId());
             System.out.println(json);
             return result;
-        })*/.thenAccept(json -> {
+        })*//*.thenAccept(json -> {
             result.add(String.valueOf(json));
-            Thread thread = Thread.currentThread();
-            System.out.println(thread.getId());
+            *//*Thread thread = Thread.currentThread();
+            System.out.println(thread.getId());*//*
         }).exceptionally(error -> {
             System.out.println(error.getMessage());
             return null;
-        });
+        });*/
 
-        return completableFuture.get();
+        //List<OrderEntity> result = asynTest.test4("John2");
+
+        //return asynTest.test4("John2").;
     }
 }

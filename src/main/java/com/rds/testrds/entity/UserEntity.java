@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "T_USER")
+@Table(name = "tb_user")
 @Getter
 @Setter
 /*@ToString(exclude = "orders")*/

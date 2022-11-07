@@ -1,8 +1,8 @@
 version: "3"
 services:
   db:
-    image: mariadb:5.5
-    container_name: mariadb
+    image: mysql:5.5
+    container_name: mysql
     ports:
       - 3306:3306
     environment:
@@ -30,7 +30,7 @@ services:
     networks:
       - backend
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb:3306/test?useUnicode=true
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/test?useUnicode=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: 1234
     depends_on:
