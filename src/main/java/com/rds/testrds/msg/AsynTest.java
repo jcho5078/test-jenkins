@@ -14,6 +14,7 @@ import org.springframework.web.context.request.async.DeferredResult;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
+import java.util.stream.Collectors;
 
 @Service
 public class AsynTest {
@@ -76,13 +77,43 @@ public class AsynTest {
     public CompletableFuture test4(String userName) throws Exception {
 
         //db I/O작업 처리
-        List<OrderEntity> order = orderRepository.getExistOrderInfoFetchJoin(userName);
+        //List<OrderEntity> order = orderRepository.getExistOrderInfoFetchJoin(userName);
+        //결과값 처리
+        //CompletableFuture result = new AsyncResult(order).completable();
+
 
         //json 일괄처리
         //String json = objectMapper.writeValueAsString(order);
 
+        return CompletableFuture.supplyAsync(() -> {
+            return orderRepository.getExistOrderInfoFetchJoin(userName);
+        });
+
+        /*return CompletableFuture.supplyAsync(() -> {
+            return orderRepository.getExistOrderInfoFetchJoin(userName).parallelStream().collect(Collectors.toList());
+        });*/
+
+        //return result;
+    }
+
+    public CompletableFuture test5(String userName) throws Exception {
+
+        //db I/O작업 처리
+        List<OrderEntity> order = orderRepository.getExistOrderInfoFetchJoin(userName);
         //결과값 처리
         CompletableFuture result = new AsyncResult(order).completable();
+
+
+        //json 일괄처리
+        //String json = objectMapper.writeValueAsString(order);
+
+        /*return CompletableFuture.supplyAsync(() -> {
+            return orderRepository.getExistOrderInfoFetchJoin(userName);
+        });*/
+
+        /*return CompletableFuture.supplyAsync(() -> {
+            return orderRepository.getExistOrderInfoFetchJoin(userName).parallelStream().collect(Collectors.toList());
+        });*/
 
         return result;
     }
