@@ -1,15 +1,12 @@
 package com.rds.testrds.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.pubsub.v1.PublishRequest;
-import com.google.pubsub.v1.PubsubMessage;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.rds.testrds.entity.OrderEntity;
 import com.rds.testrds.entity.QOrderEntity;
 import com.rds.testrds.entity.QUserEntity;
 import com.rds.testrds.entity.UserEntity;
 import com.rds.testrds.mapper.OrderMapper;
-import com.rds.testrds.msg.PubSubMessagePublisher;
 import com.rds.testrds.repository.OrderRepository;
 import com.rds.testrds.repository.UserRepository;
 import com.rds.testrds.vo.RequestVO;
@@ -38,9 +35,6 @@ public class OrderController {
     private UserRepository userRepository;
 
     private OrderMapper orderMapper;
-
-    @Autowired
-    private PubSubMessagePublisher pubSubMessagePublisher;
 
     @Autowired
     public OrderController(OrderMapper orderMapper){

@@ -88,13 +88,6 @@
             <artifactId>spring-integration-core</artifactId>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-gcp-starter-pubsub -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-gcp-starter-pubsub</artifactId>
-            <version>1.2.5.RELEASE</version>
-        </dependency>
-
     </dependencies>
 
     <build>
