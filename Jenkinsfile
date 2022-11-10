@@ -4,7 +4,7 @@ node {
         echo 'clonning repository'
         git url: 'https://github.com/jcho5078/testRds2.git',
             branch: 'master'
-            credentialsId: 'jcho5078'
+            credentialsId: 'jenkins-token'
     }
     post {
         success {
@@ -16,10 +16,9 @@ node {
     }
   }
   stage('========== Build image ==========') {
-    app = docker.build("docker pull asia.gcr.io/graphite-ruler-366202/") # 저장소
     echo 'Build Docker'
     script {
-        docker Image = docker.build testRds
+        docker Image = docker.build "asia.gcr.io/graphite-ruler-366202/testRds:${BUILD_NAME}"
     }
     post {
         failure {
