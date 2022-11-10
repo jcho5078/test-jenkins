@@ -16,7 +16,7 @@ node {
     }
   }
   stage('========== Build image ==========') {
-    app = docker.build("asia/php-apache") # 저장소
+    app = docker.build("docker pull asia.gcr.io/graphite-ruler-366202/") # 저장소
     echo 'Build Docker'
     script {
         docker Image = docker.build testRds
