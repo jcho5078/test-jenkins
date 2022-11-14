@@ -4,13 +4,13 @@ node {
         checkout scm
         sh 'chmod +x ./mvnw'
         echo '=== prepare success ==='
-        echo './mvnw -version'
     }
 
     stage('Build') {
         echo '=== Build ==='
         echo 'Build number : $BUILD_NUMBER'
         sh './mvnw clean'
+        sh './mvnw package'
         app = docker.build("asia.gcr.io/graphite-ruler-366202/test-rds:$BUILD_NUMBER")
         sh 'docker push asia.gcr.io/graphite-ruler-366202/test-rds:$BUILD_NUMBER'
     }
