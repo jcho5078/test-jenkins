@@ -21,7 +21,9 @@ services:
       - ./db/initdb.d:/docker-entrypoint-initdb.d
     command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
   app:
-    image: test-rds2:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: testApp
     ports:
       - 8080:8080
