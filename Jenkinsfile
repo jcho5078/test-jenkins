@@ -12,7 +12,6 @@ node {
         sh './mvnw clean'
         sh './mvnw package'
         app = docker.build("asia.gcr.io/graphite-ruler-366202/test-rds:$BUILD_NUMBER")
-        sh 'docker push asia.gcr.io/graphite-ruler-366202/test-rds:$BUILD_NUMBER'
     }
 
     stage('Deploy') {
