@@ -12,6 +12,7 @@ node {
         sh './mvnw clean'
         sh './mvnw package'
         app = docker.build("asia.gcr.io/graphite-ruler-366202/test-rds:$BUILD_NUMBER")
+        sh 'echo "docker push asia.gcr.io/graphite-ruler-366202/test-rds:$BUILD_NUMBER" > /JenkinsPipe'
     }
 
     stage('Deploy') {
