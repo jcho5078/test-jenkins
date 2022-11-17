@@ -13,7 +13,7 @@ node {
         sh './mvnw package'
         app = docker.build("asia.gcr.io/graphite-ruler-366202/test-rds:$BUILD_NUMBER")
         app = docker.build("asia.gcr.io/graphite-ruler-366202/test-rds:latest")
-        sh 'sudo /home/jcho5078/ci_file.sh'
+        sh '/home/jcho5078/ci_file.sh'
     }
 
     stage('Deploy') {
