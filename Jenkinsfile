@@ -12,7 +12,8 @@ node {
         sh './mvnw clean'
         sh './mvnw package'
         app = docker.build("asia.gcr.io/graphite-ruler-366202/test-rds:$BUILD_NUMBER")
-        sh 'echo "docker push asia.gcr.io/graphite-ruler-366202/test-rds:$BUILD_NUMBER" > /JenkinsPipe'
+        app = docker.build("asia.gcr.io/graphite-ruler-366202/test-rds:latest")
+        sh 'sudo /home/jcho5078/ci_file.sh'
     }
 
     stage('Deploy') {
@@ -20,18 +21,18 @@ node {
         sshPublisher(publishers: [
             sshPublisherDesc(configName: 'service-deploy'
             , transfers: [sshTransfer(cleanRemote: false, excludes: ''
-            , execCommand: 'docker-compose up'
+            , execCommand: 'sudo /home/jcho5078/init.sh'
             , execTimeout: 120000, flatten: false, makeEmptyDirs: false
             , noDefaultExcludes: false
             , patternSeparator: '[, ]+', remoteDirectory: 'deploy/'
             , remoteDirectorySDF: false, removePrefix: 'build/libs'
-            , sourceFiles: 'build/libs/*.jar')]
+            , sourceFiles: 'build/libs/*')]
             , usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: true)
         ])
     }
 
     stage('Ending') {
         echo '== Ending'
-        sh 'docker rmi asia.gcr.io/graphite-ruler-366202/test-rds:$BUILD_NUMBER'
+        sh 'docker rmi asia.gcr.io/graphite-ruler-366202/test-rds:latest'
     }
 }
