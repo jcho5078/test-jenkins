@@ -21,7 +21,7 @@ node {
         sshPublisher(publishers: [
             sshPublisherDesc(configName: 'service-deploy'
             , transfers: [sshTransfer(cleanRemote: false, excludes: ''
-            , execCommand: 'sudo /home/jcho5078/init.sh'
+            , execCommand: '/home/jcho5078/init.sh'
             , execTimeout: 120000, flatten: false, makeEmptyDirs: false
             , noDefaultExcludes: false
             , patternSeparator: '[, ]+', remoteDirectory: 'deploy/'
